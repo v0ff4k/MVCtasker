@@ -1,0 +1,17 @@
+# Prevent problems when using a controller named "index" and having a root index.php
+Options -MultiViews
+
+# URL rewriting (to site.com/controller/action/1/2/3)
+RewriteEngine On
+
+# Prevent people from looking directly into folders
+Options -Indexes
+
+# If is not a directory,
+RewriteCond %{REQUEST_FILENAME} !-d
+# and if not a regular file that exists,
+RewriteCond %{REQUEST_FILENAME} !-f
+# and not a symbolic link,
+RewriteCond %{REQUEST_FILENAME} !-l
+# then rewrite all to this last URL in the following way:
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
